@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -24,11 +25,14 @@ public class QuizActivity extends AppCompatActivity {
     Prime prime = new Prime();
     int number = random.nextInt(1000);
     int score = 0;
+    boolean button_state = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+
 
         TrueButton = (Button) findViewById(R.id.true_button);
         FalseButton = (Button) findViewById(R.id.false_button);
@@ -36,20 +40,30 @@ public class QuizActivity extends AppCompatActivity {
         Question = (TextView) findViewById(R.id.question_box);
         Score = (TextView) findViewById(R.id.score_box);
 
+        if(savedInstanceState!= null){
+            score = savedInstanceState.getInt("score");
+            number = savedInstanceState.getInt("number");
+            button_state = savedInstanceState.getBoolean("button_state");
+            Score.setText("Score:"+ Integer.toString(score));
+            FalseButton.setEnabled(button_state);
+            TrueButton.setEnabled(button_state);
+        }
+
         Question.setText("Is " + Integer.toString(number) + " Prime ?");
 
         TrueButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 if(prime.isPrime(number)){
-                    Question.setText("Correct");
+                    Toast.makeText(getApplicationContext(),"Correct",Toast.LENGTH_SHORT).show();
                     score++;
                     Log.d(TAG, "Clicked True");
                 }
                 else{
-                    Question.setText("False");
+                    Toast.makeText(getApplicationContext(),"Incorrect", Toast.LENGTH_SHORT).show();
                     score--;
                 }
+                button_state = false;
                 TrueButton.setEnabled(false);
                 FalseButton.setEnabled(false);
                 Score.setText("Score:"+ Integer.toString(score));
@@ -60,14 +74,15 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 if (!prime.isPrime(number)){
-                    Question.setText("Correct");
+                    Toast.makeText(getApplicationContext(),"Correct",Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "Clicked False");
                     score++;
                 }
                 else{
-                    Question.setText("False");
+                    Toast.makeText(getApplicationContext(),"Incorrect",Toast.LENGTH_SHORT).show();
                     score--;
                 }
+                button_state = false;
                 TrueButton.setEnabled(false);
                 FalseButton.setEnabled(false);
                 Score.setText("Score:"+ Integer.toString(score));
@@ -79,6 +94,7 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 number = random.nextInt(1000);
                 Question.setText("Is " + Integer.toString(number) + " Prime ?");
+                button_state = true;
                 TrueButton.setEnabled(true);
                 FalseButton.setEnabled(true);
             }
@@ -90,6 +106,9 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("score",score);
+        savedInstanceState.putInt("number",number);
+        savedInstanceState.putBoolean("button_state",button_state);
         Log.i(TAG, "Inside onSaveInstance");
     }
 
