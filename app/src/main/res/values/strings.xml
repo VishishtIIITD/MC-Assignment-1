@@ -2,6 +2,7 @@
     <string name="app_name">MathQuiz</string>
     <string name="false_button">False</string>
     <string name="true_button">True</string>
-    <string name="Question">Welcome</string>
+    <string name="welcome">Welcome</string>
     <string name="next_button">Next</string>
+    <string name="score">Score</string>
 </resources>
