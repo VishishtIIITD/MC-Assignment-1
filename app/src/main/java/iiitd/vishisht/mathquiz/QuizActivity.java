@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,14 +18,16 @@ public class QuizActivity extends AppCompatActivity {
     private Button TrueButton;
     private Button FalseButton;
     private Button NextButton;
+    //TextView
     private TextView Question;
     private TextView Score;
-    Random random = new Random();
-    Prime prime = new Prime();
-    int number = random.nextInt(1000);
-    int score = 0;
-    boolean button_state = true;
 
+    private final Random random = new Random();
+    private final Prime prime = new Prime();
+    private int number = random.nextInt(1000);
+    private int score = 0;
+    private boolean button_state = true;
+    private String temporaryString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +45,14 @@ public class QuizActivity extends AppCompatActivity {
             score = savedInstanceState.getInt("score");
             number = savedInstanceState.getInt("number");
             button_state = savedInstanceState.getBoolean("button_state");
-            Score.setText("Score:"+ Integer.toString(score));
+            temporaryString = "Score:"+ Integer.toString(score);
+            Score.setText(temporaryString);
             FalseButton.setEnabled(button_state);
             TrueButton.setEnabled(button_state);
         }
 
-        Question.setText("Is " + Integer.toString(number) + " Prime ?");
+        temporaryString = "Is " + Integer.toString(number) + " Prime ?" ;
+        Question.setText(temporaryString);
 
         TrueButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -66,7 +69,8 @@ public class QuizActivity extends AppCompatActivity {
                 button_state = false;
                 TrueButton.setEnabled(false);
                 FalseButton.setEnabled(false);
-                Score.setText("Score:"+ Integer.toString(score));
+                temporaryString = "Score:"+ Integer.toString(score);
+                Score.setText(temporaryString);
             }
         });
 
@@ -85,7 +89,8 @@ public class QuizActivity extends AppCompatActivity {
                 button_state = false;
                 TrueButton.setEnabled(false);
                 FalseButton.setEnabled(false);
-                Score.setText("Score:"+ Integer.toString(score));
+                temporaryString = "Score:"+ Integer.toString(score);
+                Score.setText(temporaryString);
             }
         });
 
@@ -93,7 +98,8 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 number = random.nextInt(1000);
-                Question.setText("Is " + Integer.toString(number) + " Prime ?");
+                temporaryString = "Is " + Integer.toString(number) + " Prime ?";
+                Question.setText(temporaryString);
                 button_state = true;
                 TrueButton.setEnabled(true);
                 FalseButton.setEnabled(true);
@@ -129,7 +135,7 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        Log.d(TAG,"Inside OnREsume");
+        Log.d(TAG,"Inside OnResume");
 
     }
 
