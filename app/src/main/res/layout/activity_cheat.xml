@@ -17,7 +17,8 @@
         android:onClick="cheat"
         android:layout_marginStart="50dp"
         android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        style="@style/Widget.AppCompat.Button.Colored" />
 
     <Button
         android:layout_width="wrap_content"
@@ -27,16 +28,17 @@
         android:id="@+id/dontCheat_Button"
         android:layout_marginEnd="37dp"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        style="@style/Widget.AppCompat.Button.Colored" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/askToCheat"
-        android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="94dp" />
+        android:layout_marginTop="94dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

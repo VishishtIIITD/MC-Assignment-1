@@ -18,7 +18,7 @@
         android:layout_marginStart="50dp"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/takeHint_button"/>
+        style="@style/Widget.AppCompat.Button.Colored" />
 
     <Button
         android:layout_width="wrap_content"
@@ -28,15 +28,16 @@
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:onClick="dontTakeHint"
-        android:id="@+id/noHint_button"/>
+        android:id="@+id/noHint_button"
+        style="@style/Widget.AppCompat.Button.Colored"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/askToHint"
-        android:id="@+id/textView3"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="94dp" />
+        android:layout_marginTop="94dp"
+        android:textStyle="bold" />
 </RelativeLayout>

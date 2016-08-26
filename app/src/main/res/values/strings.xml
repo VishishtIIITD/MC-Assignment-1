@@ -13,7 +13,4 @@
     <string name="noToCheat">No don\'t cheat</string>
     <string name="askToCheat">Are you sure you want to cheat \?</string>
     <string name="askToHint">Are you sure you want the hint \?</string>
-    <string name="hint">Prime number is only divisible by 1 and itself</string>
-    <string name="yesCheat">Yes the number is Prime</string>
-    <string name="noCheat">No the number is not Prime</string>
 </resources>

@@ -19,7 +19,6 @@ public class QuizActivity extends AppCompatActivity {
     //Buttons
     private Button TrueButton;
     private Button FalseButton;
-    private Button NextButton;
     private Button HintButton;
     private Button CheatButton;
     //TextView
@@ -44,7 +43,7 @@ public class QuizActivity extends AppCompatActivity {
 
         TrueButton = (Button) findViewById(R.id.true_button);
         FalseButton = (Button) findViewById(R.id.false_button);
-        NextButton = (Button) findViewById(R.id.next_button);
+        Button nextButton = (Button) findViewById(R.id.next_button);
         HintButton = (Button) findViewById(R.id.hint_button);
         CheatButton = (Button) findViewById(R.id.cheat_button);
         Question = (TextView) findViewById(R.id.question_box);
@@ -108,7 +107,7 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-        NextButton.setOnClickListener(new View.OnClickListener() {
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 number = random.nextInt(1000);

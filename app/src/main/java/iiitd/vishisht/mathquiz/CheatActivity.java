@@ -4,14 +4,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 public class CheatActivity extends AppCompatActivity {
 
-    //Buttons
-    private Button cheatButton;
     private Button dontCheatButton;
 
     private final Prime prime = new Prime();
@@ -23,7 +20,7 @@ public class CheatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
 
-        cheatButton = (Button) findViewById(R.id.doCheat_Button);
+        Button cheatButton = (Button) findViewById(R.id.doCheat_Button);
         dontCheatButton = (Button) findViewById(R.id.dontCheat_Button);
         Intent intent = getIntent();
         number = intent.getStringExtra(QuizActivity.NUMBER);
@@ -34,7 +31,6 @@ public class CheatActivity extends AppCompatActivity {
             if (!button_status){
                 dontCheatButton.setEnabled(false);
                 button_status = false;
-                Intent intent_temp = new Intent();
                 intent.putExtra("cheat_status","true");
                 setResult(RESULT_OK, intent);
             }
