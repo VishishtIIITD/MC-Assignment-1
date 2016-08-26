@@ -5,4 +5,15 @@
     <string name="welcome">Welcome</string>
     <string name="next_button">Next</string>
     <string name="score">Score</string>
+    <string name="hint_button">Hint</string>
+    <string name="cheat_button">Cheat</string>
+    <string name="takeHint_button">I want Hint</string>
+    <string name="noHint_button">I don\'t want hint</string>
+    <string name="yesToCheat">Yes cheat</string>
+    <string name="noToCheat">No don\'t cheat</string>
+    <string name="askToCheat">Are you sure you want to cheat \?</string>
+    <string name="askToHint">Are you sure you want the hint \?</string>
+    <string name="hint">Prime number is only divisible by 1 and itself</string>
+    <string name="yesCheat">Yes the number is Prime</string>
+    <string name="noCheat">No the number is not Prime</string>
 </resources>

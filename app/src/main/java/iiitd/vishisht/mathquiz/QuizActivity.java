@@ -1,5 +1,6 @@
 package iiitd.vishisht.mathquiz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,11 +14,14 @@ import java.util.Random;
 public class QuizActivity extends AppCompatActivity {
 
     private static final String TAG = "QuizActivity";
+    static final String NUMBER = "iiitd.vishisht.mathquiz.number";
 
     //Buttons
     private Button TrueButton;
     private Button FalseButton;
     private Button NextButton;
+    private Button HintButton;
+    private Button CheatButton;
     //TextView
     private TextView Question;
     private TextView Score;
@@ -26,7 +30,10 @@ public class QuizActivity extends AppCompatActivity {
     private final Prime prime = new Prime();
     private int number = random.nextInt(1000);
     private int score = 0;
-    private boolean button_state = true;
+    private boolean true_false_state = true;
+    private boolean cheat_state = true;
+    private boolean hint_state = true;
+    
     private String temporaryString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +45,24 @@ public class QuizActivity extends AppCompatActivity {
         TrueButton = (Button) findViewById(R.id.true_button);
         FalseButton = (Button) findViewById(R.id.false_button);
         NextButton = (Button) findViewById(R.id.next_button);
+        HintButton = (Button) findViewById(R.id.hint_button);
+        CheatButton = (Button) findViewById(R.id.cheat_button);
         Question = (TextView) findViewById(R.id.question_box);
         Score = (TextView) findViewById(R.id.score_box);
+
 
         if(savedInstanceState!= null){
             score = savedInstanceState.getInt("score");
             number = savedInstanceState.getInt("number");
-            button_state = savedInstanceState.getBoolean("button_state");
+            true_false_state = savedInstanceState.getBoolean("true_false_state");
+            cheat_state = savedInstanceState.getBoolean("cheat_state");
+            hint_state = savedInstanceState.getBoolean("hint_state");
             temporaryString = "Score:"+ Integer.toString(score);
             Score.setText(temporaryString);
-            FalseButton.setEnabled(button_state);
-            TrueButton.setEnabled(button_state);
+            FalseButton.setEnabled(true_false_state);
+            TrueButton.setEnabled(true_false_state);
+            CheatButton.setEnabled(cheat_state);
+            HintButton.setEnabled(hint_state);
         }
 
         temporaryString = "Is " + Integer.toString(number) + " Prime ?" ;
@@ -66,7 +80,7 @@ public class QuizActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Incorrect", Toast.LENGTH_SHORT).show();
                     score--;
                 }
-                button_state = false;
+                true_false_state = false;
                 TrueButton.setEnabled(false);
                 FalseButton.setEnabled(false);
                 temporaryString = "Score:"+ Integer.toString(score);
@@ -86,7 +100,7 @@ public class QuizActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Incorrect",Toast.LENGTH_SHORT).show();
                     score--;
                 }
-                button_state = false;
+                true_false_state = false;
                 TrueButton.setEnabled(false);
                 FalseButton.setEnabled(false);
                 temporaryString = "Score:"+ Integer.toString(score);
@@ -100,12 +114,48 @@ public class QuizActivity extends AppCompatActivity {
                 number = random.nextInt(1000);
                 temporaryString = "Is " + Integer.toString(number) + " Prime ?";
                 Question.setText(temporaryString);
-                button_state = true;
+                true_false_state = true;
                 TrueButton.setEnabled(true);
                 FalseButton.setEnabled(true);
+                HintButton.setEnabled(true);
+                CheatButton.setEnabled(true );
             }
         });
 
+
+    }
+
+    public void goToHintActivity(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, HintActivity.class);
+        startActivityForResult(intent,1);
+    }
+
+    public void goToCheatActivity(View view){
+        Intent intent = new Intent(this, CheatActivity.class);
+        intent.putExtra(NUMBER, Integer.toString(number));
+        startActivityForResult(intent,2);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            if(intent.getStringExtra("hint_status").equals("true")){
+                Toast.makeText(getApplicationContext(),"Hint Used",Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Inside OnActivityResult");
+                HintButton.setEnabled(false);
+                hint_state = false;
+            }
+        }
+        if (requestCode == 2 && resultCode == RESULT_OK) {
+            if(intent.getStringExtra("cheat_status").equals("true")){
+                Toast.makeText(getApplicationContext(),"Cheat Used",Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Inside OnActivityResult");
+                CheatButton.setEnabled(false);
+                cheat_state = false;
+            }
+        }
 
     }
 
@@ -114,7 +164,9 @@ public class QuizActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putInt("score",score);
         savedInstanceState.putInt("number",number);
-        savedInstanceState.putBoolean("button_state",button_state);
+        savedInstanceState.putBoolean("true_false_state",true_false_state);
+        savedInstanceState.putBoolean("cheat_state",cheat_state);
+        savedInstanceState.putBoolean("hint_state",hint_state);
         Log.i(TAG, "Inside onSaveInstance");
     }
 
